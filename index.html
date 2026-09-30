@@ -1,244 +1,468 @@
-<title>Rasama | Links</title>
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+    <title>Rasama | Links</title>
 
-    body {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        font-family: Arial, Helvetica, sans-serif;
-        color: white;
-
-        background:
-            radial-gradient(circle at 20% 20%, #5b21b6 0%, transparent 30%),
-            radial-gradient(circle at 80% 80%, #2563eb 0%, transparent 30%),
-            #080810;
-
-        overflow: hidden;
-    }
-
-    /* Светящиеся круги на фоне */
-    body::before,
-    body::after {
-        content: "";
-        position: fixed;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        filter: blur(100px);
-        opacity: 0.25;
-        z-index: -1;
-    }
-
-    body::before {
-        background: #8b5cf6;
-        top: -100px;
-        left: -100px;
-    }
-
-    body::after {
-        background: #3b82f6;
-        bottom: -100px;
-        right: -100px;
-    }
-
-    .card {
-        width: 90%;
-        max-width: 430px;
-        padding: 40px 28px;
-
-        text-align: center;
-
-        background: rgba(255, 255, 255, 0.07);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 28px;
-
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-
-        box-shadow:
-            0 25px 80px rgba(0, 0, 0, 0.45);
-
-        animation: appear 0.8s ease;
-    }
-
-    @keyframes appear {
-        from {
-            opacity: 0;
-            transform: translateY(25px);
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        html {
+            min-height: 100%;
+            background: #070711;
         }
-    }
 
-    .avatar {
-        width: 90px;
-        height: 90px;
+        body {
+            min-height: 100vh;
+            min-height: 100svh;
 
-        margin: 0 auto 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+            padding: 24px 16px;
 
-        border-radius: 50%;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
 
-        background: linear-gradient(135deg, #8b5cf6, #2563eb);
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(124, 58, 237, 0.25),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(37, 99, 235, 0.22),
+                    transparent 35%
+                ),
+                #070711;
 
-        font-size: 38px;
-        font-weight: bold;
+            overflow: hidden;
+        }
 
-        box-shadow:
-            0 0 35px rgba(99, 102, 241, 0.5);
-    }
+        /* Анимированный градиент */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -50%;
 
-    h1 {
-        font-size: 30px;
-        margin-bottom: 8px;
-    }
+            background:
+                radial-gradient(
+                    circle at 30% 30%,
+                    rgba(139, 92, 246, 0.18),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 70% 70%,
+                    rgba(59, 130, 246, 0.15),
+                    transparent 25%
+                );
 
-    .description {
-        color: #a9a9b5;
-        font-size: 15px;
-        margin-bottom: 28px;
-    }
+            filter: blur(60px);
 
-    .links {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-    }
+            animation: backgroundMove 12s ease-in-out infinite alternate;
 
-    .link {
-        position: relative;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @keyframes backgroundMove {
+            0% {
+                transform: translate(-5%, -5%) scale(1);
+            }
 
-        min-height: 58px;
-        padding: 0 20px;
+            50% {
+                transform: translate(5%, 3%) scale(1.08);
+            }
 
-        border-radius: 15px;
+            100% {
+                transform: translate(-2%, 7%) scale(1.03);
+            }
+        }
 
-        color: white;
-        text-decoration: none;
-        font-size: 17px;
-        font-weight: 600;
+        /* Светящиеся частицы */
+        .particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        .particle {
+            position: absolute;
 
-        transition:
-            transform 0.25s ease,
-            background 0.25s ease,
-            box-shadow 0.25s ease;
-    }
+            width: 5px;
+            height: 5px;
 
-    .link:hover {
-        transform: translateY(-4px);
+            border-radius: 50%;
 
-        background: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.65);
 
-        box-shadow:
-            0 12px 30px rgba(0, 0, 0, 0.3);
-    }
+            box-shadow:
+                0 0 12px rgba(139, 92, 246, 0.9);
 
-    .donate {
-        background: linear-gradient(
-            135deg,
-            #8b5cf6,
-            #6366f1
-        );
+            animation: float linear infinite;
+        }
 
-        border: none;
+        .particle:nth-child(1) {
+            left: 8%;
+            animation-duration: 14s;
+            animation-delay: -3s;
+        }
 
-        box-shadow:
-            0 8px 25px rgba(99, 102, 241, 0.3);
-    }
+        .particle:nth-child(2) {
+            left: 20%;
+            animation-duration: 19s;
+            animation-delay: -8s;
+            width: 3px;
+            height: 3px;
+        }
 
-    .donate:hover {
-        background: linear-gradient(
-            135deg,
-            #9d6cff,
-            #7180ff
-        );
+        .particle:nth-child(3) {
+            left: 35%;
+            animation-duration: 16s;
+            animation-delay: -12s;
+        }
 
-        box-shadow:
-            0 12px 35px rgba(99, 102, 241, 0.45);
-    }
+        .particle:nth-child(4) {
+            left: 50%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+            width: 4px;
+            height: 4px;
+        }
 
-    .icon {
-        position: absolute;
-        left: 18px;
-        font-size: 23px;
-    }
+        .particle:nth-child(5) {
+            left: 67%;
+            animation-duration: 17s;
+            animation-delay: -10s;
+        }
 
-    footer {
-        margin-top: 28px;
-        color: #686875;
-        font-size: 12px;
-    }
+        .particle:nth-child(6) {
+            left: 80%;
+            animation-duration: 20s;
+            animation-delay: -15s;
+            width: 3px;
+            height: 3px;
+        }
 
-    @media (max-width: 480px) {
+        .particle:nth-child(7) {
+            left: 92%;
+            animation-duration: 15s;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(50vh) translateX(35px);
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) translateX(-25px);
+                opacity: 0;
+            }
+        }
+
+        /* Основная карточка */
         .card {
-            padding: 32px 20px;
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            max-width: 430px;
+
+            padding: 40px 28px;
+
+            text-align: center;
+
+            background: rgba(15, 15, 27, 0.68);
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+            animation: cardAppear 0.8s ease-out;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Аватар */
+        .avatar {
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #8b5cf6,
+                #2563eb
+            );
+
+            font-size: 38px;
+            font-weight: bold;
+
+            box-shadow:
+                0 0 30px rgba(99, 102, 241, 0.45);
+
+            animation: avatarGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes avatarGlow {
+            0%, 100% {
+                box-shadow:
+                    0 0 25px rgba(99, 102, 241, 0.35);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 45px rgba(139, 92, 246, 0.65);
+            }
         }
 
         h1 {
-            font-size: 27px;
+            font-size: 30px;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
-    }
-</style>
-<main class="card">
 
-    <div class="avatar">
-        R
+        .description {
+            color: #aaaaba;
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        /* Кнопки */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .link {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            min-height: 58px;
+
+            padding: 0 50px;
+
+            border-radius: 15px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 17px;
+            font-weight: 600;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .link:hover {
+            transform: translateY(-4px);
+
+            background: rgba(255, 255, 255, 0.13);
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .link:active {
+            transform: scale(0.97);
+        }
+
+        .donate {
+            background: linear-gradient(
+                135deg,
+                #8b5cf6,
+                #6366f1
+            );
+
+            border: none;
+
+            box-shadow:
+                0 8px 25px rgba(99, 102, 241, 0.30);
+        }
+
+        .donate:hover {
+            background: linear-gradient(
+                135deg,
+                #9d6cff,
+                #7180ff
+            );
+
+            box-shadow:
+                0 12px 35px rgba(99, 102, 241, 0.45);
+        }
+
+        .icon {
+            position: absolute;
+            left: 18px;
+
+            font-size: 22px;
+        }
+
+        footer {
+            margin-top: 28px;
+
+            color: #686875;
+            font-size: 12px;
+        }
+
+        /* Оптимизация для телефонов */
+        @media (max-width: 480px) {
+            body {
+                padding: 18px 12px;
+            }
+
+            .card {
+                padding: 32px 18px;
+                border-radius: 24px;
+            }
+
+            .avatar {
+                width: 78px;
+                height: 78px;
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .description {
+                margin-bottom: 23px;
+            }
+
+            .link {
+                min-height: 56px;
+                font-size: 16px;
+                border-radius: 14px;
+            }
+        }
+
+        /* Уменьшаем анимации, если пользователь их отключил */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Анимированные частицы -->
+    <div class="particles">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
     </div>
 
-    <h1>Rasama</h1>
+    <main class="card">
 
-    <p class="description">
-        Мои ссылки и поддержка ❤️
-    </p>
+        <div class="avatar">R</div>
 
-    <div class="links">
+        <h1>Rasama</h1>
 
-        <a
-            class="link donate"
-            href="https://www.donationalerts.
-com/r/canot"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <span class="icon">💜</span>
-            Поддержать меня
-        </a>
+        <p class="description">
+            Мои ссылки и поддержка ❤️
+        </p>
 
-        <a
-            class="link"
-            href="https://t.me/RasamaCs2"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <span class="icon">✈️</span>
-            Мой Telegram
-        </a>
+        <div class="links">
 
-    </div>
+            <a
+                class="link donate"
+                href="https://www.donationalerts.com/r/canot"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span class="icon">💜</span>
+                Поддержать меня
+            </a>
 
-    <footer>
-        © 2026 Rasama
-    </footer>
+            <a
+                class="link"
+                href="https://t.me/RasamaCs2"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span class="icon">✈️</span>
+                Мой Telegram
+            </a>
 
-</main>
+        </div>
+
+        <footer>
+            © 2026 Rasama
+        </footer>
+
+    </main>
+
+</body>
+</html>
+```
