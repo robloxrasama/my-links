@@ -5,229 +5,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <title>Rasama | Links</title>
+    <title>Rasama</title>
 
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
-        html {
+        html,
+        body {
+            margin: 0;
+            width: 100%;
             min-height: 100%;
-            background: #070711;
         }
 
         body {
-            min-height: 100vh;
             min-height: 100svh;
+            overflow: hidden;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            padding: 24px 16px;
+            padding: 20px;
 
             font-family: Arial, Helvetica, sans-serif;
-            color: white;
+            color: #fff;
 
-            background:
-                radial-gradient(
-                    circle at 20% 20%,
-                    rgba(124, 58, 237, 0.25),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at 80% 80%,
-                    rgba(37, 99, 235, 0.22),
-                    transparent 35%
-                ),
-                #070711;
-
-            overflow: hidden;
+            background: #08080d;
         }
 
-        /* Анимированный градиент */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: -50%;
-
-            background:
-                radial-gradient(
-                    circle at 30% 30%,
-                    rgba(139, 92, 246, 0.18),
-                    transparent 25%
-                ),
-                radial-gradient(
-                    circle at 70% 70%,
-                    rgba(59, 130, 246, 0.15),
-                    transparent 25%
-                );
-
-            filter: blur(60px);
-
-            animation: backgroundMove 12s ease-in-out infinite alternate;
-
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes backgroundMove {
-            0% {
-                transform: translate(-5%, -5%) scale(1);
-            }
-
-            50% {
-                transform: translate(5%, 3%) scale(1.08);
-            }
-
-            100% {
-                transform: translate(-2%, 7%) scale(1.03);
-            }
-        }
-
-        /* Светящиеся частицы */
-        .particles {
+        /* Фоновое свечение */
+        .background {
             position: fixed;
             inset: 0;
             overflow: hidden;
             pointer-events: none;
-            z-index: 0;
         }
 
-        .particle {
+        .glow {
             position: absolute;
-
-            width: 5px;
-            height: 5px;
+            width: 380px;
+            height: 380px;
 
             border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.22;
 
-            background: rgba(255, 255, 255, 0.65);
-
-            box-shadow:
-                0 0 12px rgba(139, 92, 246, 0.9);
-
-            animation: float linear infinite;
+            animation: moveGlow 14s ease-in-out infinite alternate;
         }
 
-        .particle:nth-child(1) {
-            left: 8%;
-            animation-duration: 14s;
-            animation-delay: -3s;
+        .glow.one {
+            top: -160px;
+            left: -120px;
+            background: #7c3aed;
         }
 
-        .particle:nth-child(2) {
-            left: 20%;
-            animation-duration: 19s;
-            animation-delay: -8s;
-            width: 3px;
-            height: 3px;
-        }
-
-        .particle:nth-child(3) {
-            left: 35%;
-            animation-duration: 16s;
-            animation-delay: -12s;
-        }
-
-        .particle:nth-child(4) {
-            left: 50%;
-            animation-duration: 22s;
+        .glow.two {
+            right: -150px;
+            bottom: -170px;
+            background: #2563eb;
             animation-delay: -5s;
-            width: 4px;
-            height: 4px;
         }
 
-        .particle:nth-child(5) {
-            left: 67%;
-            animation-duration: 17s;
-            animation-delay: -10s;
-        }
-
-        .particle:nth-child(6) {
-            left: 80%;
-            animation-duration: 20s;
-            animation-delay: -15s;
-            width: 3px;
-            height: 3px;
-        }
-
-        .particle:nth-child(7) {
-            left: 92%;
-            animation-duration: 15s;
-            animation-delay: -7s;
-        }
-
-        @keyframes float {
+        @keyframes moveGlow {
             0% {
-                transform: translateY(110vh) translateX(0);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.8;
+                transform: translate(0, 0) scale(1);
             }
 
             50% {
-                transform: translateY(50vh) translateX(35px);
-            }
-
-            90% {
-                opacity: 0.8;
+                transform: translate(80px, 40px) scale(1.15);
             }
 
             100% {
-                transform: translateY(-10vh) translateX(-25px);
-                opacity: 0;
+                transform: translate(-30px, 80px) scale(0.95);
             }
         }
 
-        /* Основная карточка */
-        .card {
+        /* Точки на фоне */
+        .stars {
+            position: absolute;
+            inset: 0;
+        }
+
+        .star {
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+
+            animation: starFloat 8s ease-in-out infinite;
+        }
+
+        .star:nth-child(1) {
+            left: 10%;
+            top: 20%;
+        }
+
+        .star:nth-child(2) {
+            left: 25%;
+            top: 75%;
+            animation-delay: -2s;
+        }
+
+        .star:nth-child(3) {
+            left: 48%;
+            top: 15%;
+            animation-delay: -4s;
+        }
+
+        .star:nth-child(4) {
+            left: 72%;
+            top: 30%;
+            animation-delay: -1s;
+        }
+
+        .star:nth-child(5) {
+            left: 88%;
+            top: 70%;
+            animation-delay: -5s;
+        }
+
+        .star:nth-child(6) {
+            left: 60%;
+            top: 85%;
+            animation-delay: -3s;
+        }
+
+        @keyframes starFloat {
+            0%, 100% {
+                opacity: 0.2;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-18px);
+            }
+        }
+
+        /* Карточка */
+        .container {
             position: relative;
             z-index: 2;
 
             width: 100%;
-            max-width: 430px;
+            max-width: 410px;
 
-            padding: 40px 28px;
+            padding: 38px 26px;
 
             text-align: center;
 
-            background: rgba(15, 15, 27, 0.68);
+            background: rgba(15, 15, 22, 0.72);
 
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.10);
             border-radius: 28px;
 
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
 
             box-shadow:
-                0 25px 80px rgba(0, 0, 0, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 30px 80px rgba(0, 0, 0, 0.55);
 
-            animation: cardAppear 0.8s ease-out;
+            /* Анимация открытия сайта */
+            opacity: 0;
+            transform: translateY(35px) scale(0.94);
+
+            animation: pageOpen 0.9s cubic-bezier(.22, 1, .36, 1) forwards;
         }
 
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(25px) scale(0.97);
-            }
-
+        @keyframes pageOpen {
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
 
-        /* Аватар */
-        .avatar {
-            width: 90px;
-            height: 90px;
+        /* Логотип */
+        .logo {
+            width: 86px;
+            height: 86px;
 
             margin: 0 auto 18px;
 
@@ -240,50 +200,60 @@
             background: linear-gradient(
                 135deg,
                 #8b5cf6,
-                #2563eb
+                #3b82f6
             );
 
-            font-size: 38px;
-            font-weight: bold;
+            font-size: 34px;
+            font-weight: 700;
 
             box-shadow:
-                0 0 30px rgba(99, 102, 241, 0.45);
+                0 0 35px rgba(99, 102, 241, 0.35);
 
-            animation: avatarGlow 3s ease-in-out infinite;
+            animation: logoAppear 1s ease 0.2s both;
         }
 
-        @keyframes avatarGlow {
-            0%, 100% {
-                box-shadow:
-                    0 0 25px rgba(99, 102, 241, 0.35);
+        @keyframes logoAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.6) rotate(-10deg);
             }
 
-            50% {
-                box-shadow:
-                    0 0 45px rgba(139, 92, 246, 0.65);
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0);
             }
         }
 
         h1 {
+            margin: 0 0 26px;
+
             font-size: 30px;
-            margin-bottom: 8px;
+            font-weight: 700;
             letter-spacing: -0.5px;
+
+            animation: textAppear 0.8s ease 0.35s both;
         }
 
-        .description {
-            color: #aaaaba;
-            font-size: 15px;
-            margin-bottom: 28px;
+        @keyframes textAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Кнопки */
-        .links {
+        .buttons {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
 
-        .link {
+        .button {
             position: relative;
 
             display: flex;
@@ -293,14 +263,14 @@
             width: 100%;
             min-height: 58px;
 
-            padding: 0 50px;
+            padding: 14px 50px;
 
             border-radius: 15px;
 
-            color: white;
+            color: #fff;
             text-decoration: none;
 
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
 
             background: rgba(255, 255, 255, 0.07);
@@ -308,13 +278,35 @@
             border: 1px solid rgba(255, 255, 255, 0.10);
 
             transition:
-                transform 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
+                transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+
+            animation: buttonAppear 0.7s ease both;
         }
 
-        .link:hover {
-            transform: translateY(-4px);
+        .button:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .button:nth-child(2) {
+            animation-delay: 0.65s;
+        }
+
+        @keyframes buttonAppear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
 
             background: rgba(255, 255, 255, 0.13);
 
@@ -322,7 +314,7 @@
                 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .link:active {
+        .button:active {
             transform: scale(0.97);
         }
 
@@ -336,7 +328,7 @@
             border: none;
 
             box-shadow:
-                0 8px 25px rgba(99, 102, 241, 0.30);
+                0 8px 25px rgba(99, 102, 241, 0.25);
         }
 
         .donate:hover {
@@ -347,57 +339,67 @@
             );
 
             box-shadow:
-                0 12px 35px rgba(99, 102, 241, 0.45);
+                0 12px 35px rgba(99, 102, 241, 0.4);
         }
 
         .icon {
             position: absolute;
             left: 18px;
 
-            font-size: 22px;
+            font-size: 21px;
         }
 
-        footer {
-            margin-top: 28px;
-
-            color: #686875;
-            font-size: 12px;
-        }
-
-        /* Оптимизация для телефонов */
+        /* Телефоны */
         @media (max-width: 480px) {
             body {
-                padding: 18px 12px;
+                padding: 14px;
             }
 
-            .card {
+            .container {
+                max-width: 100%;
                 padding: 32px 18px;
                 border-radius: 24px;
             }
 
-            .avatar {
-                width: 78px;
-                height: 78px;
-                font-size: 32px;
-                margin-bottom: 15px;
+            .logo {
+                width: 76px;
+                height: 76px;
+                font-size: 30px;
+                margin-bottom: 16px;
             }
 
             h1 {
                 font-size: 27px;
+                margin-bottom: 22px;
             }
 
-            .description {
-                margin-bottom: 23px;
-            }
-
-            .link {
+            .button {
                 min-height: 56px;
                 font-size: 16px;
                 border-radius: 14px;
             }
         }
 
-        /* Уменьшаем анимации, если пользователь их отключил */
+        /* Очень маленькие экраны */
+        @media (max-height: 600px) {
+            .container {
+                padding: 24px 18px;
+            }
+
+            .logo {
+                width: 65px;
+                height: 65px;
+                font-size: 26px;
+                margin-bottom: 12px;
+            }
+
+            h1 {
+                margin-bottom: 18px;
+                font-size: 25px;
+            }
+        }
+
+        /* Уважение к настройке уменьшения анимаций */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -412,54 +414,49 @@
 
 <body>
 
-    <!-- Анимированные частицы -->
-    <div class="particles">
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
+    <div class="background">
+        <div class="glow one"></div>
+        <div class="glow two"></div>
+
+        <div class="stars">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+        </div>
     </div>
 
-    <main class="card">
+    <main class="container">
 
-        <div class="avatar">R</div>
+        <div class="logo">R</div>
 
         <h1>Rasama</h1>
 
-        <p class="description">
-            Мои ссылки и поддержка ❤️
-        </p>
-
-        <div class="links">
+        <div class="buttons">
 
             <a
-                class="link donate"
+                class="button donate"
                 href="https://www.donationalerts.com/r/canot"
                 target="_blank"
                 rel="noopener noreferrer"
             >
                 <span class="icon">💜</span>
-                Поддержать меня
+                Поддержать
             </a>
 
             <a
-                class="link"
+                class="button"
                 href="https://t.me/RasamaCs2"
                 target="_blank"
                 rel="noopener noreferrer"
             >
                 <span class="icon">✈️</span>
-                Мой Telegram
+                Telegram
             </a>
 
         </div>
-
-        <footer>
-            © 2026 Rasama
-        </footer>
 
     </main>
 
