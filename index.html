@@ -65,8 +65,6 @@
         }
 
         /* ================= ФОН ================= */
-        /* Без filter: blur — пятна и так мягкие (градиент до прозрачности),
-           двигаются только через transform, поэтому идут на GPU */
         .backdrop {
             position: fixed;
             inset: 0;
@@ -170,8 +168,6 @@
             max-width: 380px;
         }
 
-        /* Конечное состояние задано обычными стилями, анимация только «из» —
-           поэтому после появления работают hover и нажатие */
         .reveal {
             animation: reveal 0.9s var(--ease-out) var(--d, 0s) backwards;
         }
@@ -202,7 +198,6 @@
             50%      { transform: translate3d(0, -7px, 0); }
         }
 
-        /* Вращающееся свечение: мягкий край через маску, без blur */
         .avatar-wrap::before {
             content: "";
             position: absolute;
@@ -226,7 +221,6 @@
             from { opacity: 0; }
         }
 
-        /* Кольцо-«волна» при открытии */
         .avatar-wrap::after {
             content: "";
             position: absolute;
@@ -281,7 +275,6 @@
             from { opacity: 0; transform: scale(0.3); }
         }
 
-        /* Название: буквы появляются по очереди */
         .title {
             margin: 0;
             font-size: 34px;
@@ -331,7 +324,6 @@
             transition: transform 0.35s var(--ease-out), box-shadow 0.35s ease;
         }
 
-        /* Градиентная кромка стекла */
         .row::before {
             content: "";
             position: absolute;
@@ -346,7 +338,6 @@
             z-index: 2;
         }
 
-        /* Блик: при открытии пробегает один раз, затем следует за курсором */
         .row::after {
             content: "";
             position: absolute;
@@ -474,9 +465,7 @@
             text-shadow: 0 1px 8px rgba(30, 40, 120, 0.3);
         }
 
-        /* ---------- Облегчённый режим ----------
-           Включается автоматически, если устройство не тянет 60 fps,
-           либо если браузер не поддерживает backdrop-filter */
+        /* ---------- Облегчённый режим ---------- */
         .lite .row,
         .lite .avatar {
             -webkit-backdrop-filter: none;
@@ -591,13 +580,13 @@
             </a>
 
             <a class="row reveal" style="--d: 1.15s; --sd: 1.9s"
-               href="https://t.me/RasamaCs2"
+               href="https://t.me/RasamaDrop"
                target="_blank"
                rel="noopener noreferrer">
                 <span class="badge" aria-hidden="true">✈️</span>
                 <span class="row-text">
                     <span class="row-title">Telegram</span>
-                    <span class="row-sub">t.me/RasamaCs2</span>
+                    <span class="row-sub">t.me/RasamaDrop</span>
                 </span>
                 <svg class="chevron" viewBox="0 0 10 18" aria-hidden="true">
                     <path d="M2 2l6 7-6 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -609,7 +598,7 @@
     </main>
 
     <script>
-        // ===== Блик на стекле: следует за курсором и пальцем (через rAF, без лишних layout-чтений) =====
+        // ===== Блик на стекле: следует за курсором и пальцем =====
         document.querySelectorAll(".row").forEach(function (row) {
             var rect = null, px = 0, py = 0, queued = false;
 
@@ -661,7 +650,6 @@
             resize();
             window.addEventListener("resize", resize);
 
-            // --- Спрайты рисуем один раз, дальше только drawImage ---
             function crystal(size, variant) {
                 var s = Math.ceil(size * 2 + 8);
                 var c = document.createElement("canvas");
@@ -725,7 +713,6 @@
                 return { img: c, w: s, h: s };
             }
 
-            // Снежинки стали заметно меньше
             var sprites = {
                 far:  [crystal(4, 2), crystal(5, 0)],
                 mid:  [crystal(8, 0), crystal(9, 1), crystal(8, 2)],
@@ -752,7 +739,6 @@
                     flakes.push({
                         sprite: set[Math.floor(Math.random() * set.length)],
                         x: rand(0, W),
-                        // Крупные слои начинают падать сверху — снегопад «начинается» при открытии
                         y: p.top ? rand(-H, -20) : rand(-40, H),
                         vy: rand(p.speed[0], p.speed[1]),
                         alpha: rand(p.alpha[0], p.alpha[1]),
@@ -769,10 +755,8 @@
                 }
             });
 
-            // Снег плавно проявляется вместе с открытием страницы
             requestAnimationFrame(function () { canvas.classList.add("on"); });
 
-            // --- Ветер от движения курсора ---
             var wind = 0, windTarget = 0, lastX = null;
             window.addEventListener("pointermove", function (e) {
                 if (lastX !== null) {
@@ -781,10 +765,10 @@
                 lastX = e.clientX;
             }, { passive: true });
 
-            // --- Адаптивное качество: держим 60 fps ---
+            // Адаптивное качество: держим 60 fps
             var level = 0;
             var sumDt = 0, cnt = 0;
-            var measureFrom = performance.now() + 3500;   // интро не учитываем
+            var measureFrom = performance.now() + 3500;
 
             function degrade() {
                 level++;
@@ -799,13 +783,14 @@
                 measureFrom = performance.now() + 2500;
             }
 
+            var last = performance.now();
+
             document.addEventListener("visibilitychange", function () {
                 last = performance.now();
                 measureFrom = last + 1500;
                 sumDt = 0; cnt = 0;
             });
 
-            var last = performance.now();
             function frame(now) {
                 var raw = (now - last) / 1000;
                 var dt = Math.min(raw, 0.05);
@@ -814,7 +799,7 @@
                 if (now > measureFrom && level < 3 && raw < 0.2) {
                     sumDt += raw; cnt++;
                     if (cnt >= 90) {
-                        if (sumDt / cnt > 0.0215) degrade();   // ниже ~46 fps
+                        if (sumDt / cnt > 0.0215) degrade();
                         else { sumDt = 0; cnt = 0; }
                     }
                 }
